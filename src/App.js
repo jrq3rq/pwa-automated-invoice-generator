@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import DataUpload from "./components/DataUpload";
+import InvoiceDisplay from "./components/InvoiceDisplay";
 import "./App.css";
 
 // Define styled components
@@ -7,23 +9,19 @@ import "./App.css";
 const AppContainer = styled.div`
   font-family: "Roboto", sans-serif;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center; /* Align children horizontally at the center */
+  align-items: center; /* Align children vertically at the center */
   height: 100vh;
   overflow: hidden;
   background-color: #f5f5f5;
-  padding: 40px 20px 20px 20px;
-  overflow-y: none; // Enable scrolling within this section
+  /* background-color: pink; */
+  padding: 20px;
+  @media (max-width: 768px) {
+    padding: 10px;
+  }
 `;
 
-const Title = styled.h1`
-  color: #2c3e50;
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
-  font-weight: bold;
-`;
-
-const UploadSection = styled.section`
+const UploadSection = styled.div`
   background-color: white;
   padding: 2rem;
   border-radius: 10px;
@@ -33,8 +31,8 @@ const UploadSection = styled.section`
   overflow-y: auto;
 
   @media (max-width: 768px) {
-    padding: 2rem 40px;
     width: 80%;
+    padding: 2rem 20px;
   }
 `;
 
@@ -85,6 +83,12 @@ const Select = styled.select`
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 1rem;
+`;
+const Title = styled.h1`
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
 `;
 
 const ModalBackdrop = styled.div`
@@ -204,30 +208,28 @@ function App() {
         {/* <Title>Invoice Generator</Title> */}
         <UploadSection>
           <Form onSubmit={handleSubmit}>
-            <Label htmlFor="file-upload">Upload CSV File:</Label>
-            <Input id="file-upload" type="file" onChange={handleFileUpload} />
-            <Label>Customer Name:</Label>
+            {/* <Label>Customer Name:</Label> */}
             <Input
               type="text"
               placeholder="Enter Customer Name"
               value={customerName}
               onChange={(e) => setCustomerName(e.target.value)}
             />
-            <Label>Street:</Label>
+            {/* <Label>Street:</Label> */}
             <Input
               type="text"
               placeholder="Street Address"
               value={street}
               onChange={(e) => setStreet(e.target.value)}
             />
-            <Label>City:</Label>
+            {/* <Label>City:</Label> */}
             <Input
               type="text"
               placeholder="City"
               value={city}
               onChange={(e) => setCity(e.target.value)}
             />
-            <Label>State:</Label>
+            {/* <Label>State:</Label> */}
             <Select value={state} onChange={(e) => setState(e.target.value)}>
               <option value="">Select State</option>
               {states.map((state) => (
@@ -236,13 +238,15 @@ function App() {
                 </option>
               ))}
             </Select>
-            <Label>Zip Code:</Label>
+            {/* <Label>Zip Code:</Label> */}
             <Input
               type="text"
               placeholder="Zip Code"
               value={zipCode}
               onChange={(e) => setZipCode(e.target.value)}
             />
+            <Label htmlFor="file-upload">Upload CSV File:</Label>
+            <Input id="file-upload" type="file" onChange={handleFileUpload} />
             <Button type="submit">Generate Invoice</Button>
           </Form>
         </UploadSection>
